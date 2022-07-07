@@ -1,0 +1,1644 @@
+            
+          
+				 <style type="text/css">
+
+			 	.__img{
+			 		width: 60%;margin: -23px
+			 	}
+                   @media(max-width: 767px){
+			 		.__img{
+			 			width: 40%;margin: -23px;
+			 		}
+			 		
+			 	}
+
+
+			 </style>
+				<div class="main-header">
+					<div class="row">
+
+						<div class="col-md-3 col-sm-3 col-xs-12">
+							<div class="logo logo4">
+								<h1 class="hidden">PROLI</h1>
+								<a href="http://localhost/theproli.com/index"><img src="http://localhost/theproli.com/proli-image/proli.png" alt="" class="__img"></a>
+							</div>
+						</div>
+                      							<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="smart-search smart-search4">
+								<div class="select-category">
+									<a class="category-toggle-link" href="#"><span>All Categories</span></a>
+									<input type="hidden" name="cate_id">
+									<ul class="list-category-toggle list-unstyled __CATE__SEARCH">
+									  <li cate_id="-1"><a>All Categories</a></li>	
+										
+									<li cate_id="3n4hSco1"><a href="#" cate_id="3n4hSco1">dairies</a></li><li cate_id="uhGfQKrg"><a href="#" cate_id="uhGfQKrg">fruits</a></li><li cate_id="iNOM0SuJ"><a href="#" cate_id="iNOM0SuJ">grains</a></li><li cate_id="DyOqxeIM"><a href="#" cate_id="DyOqxeIM">livestock</a></li><li cate_id="mG3huSN8"><a href="#" cate_id="mG3huSN8">nuts</a></li><li cate_id="X2ID3hJM"><a href="#" cate_id="X2ID3hJM">oil</a></li><li cate_id="0beAgUsv"><a href="#" cate_id="0beAgUsv">poultry</a></li><li cate_id="cXYnlzmi2oJy"><a href="#" cate_id="cXYnlzmi2oJy">fisheries &amp; sea foods</a></li><li cate_id="8BqzE4tWji9X"><a href="#" cate_id="8BqzE4tWji9X">spices</a></li><li cate_id="9eK1tx4GJBoS"><a href="#" cate_id="9eK1tx4GJBoS">tubers</a></li><li cate_id="8hC6IY0sLvHz"><a href="#" cate_id="8hC6IY0sLvHz">vegetable</a></li></ul>
+								</div>
+								  <script type="text/javascript">
+								  	document.querySelector(".__CATE__SEARCH").addEventListener("click",function(e){
+                                     this.previousElementSibling.value = e.target.getAttribute("cate_id");
+                                    
+                                       this.previousElementSibling.previousElementSibling.innerHTML = e.target.innerHTML;
+
+								  	})
+								  </script>  
+								<form class="smart-search-form ajax-search">
+									<input type="text" onblur="if (this.value=='') this.value = this.defaultValue" onfocus="search(this)" value="" placeholder="Search category, subcategory and types">
+									<input type="submit" value="" style="background: #fff;pointer-events: none;">
+
+
+									<div class="list-product-search" style="max-height: 300px;overflow: auto;">
+										 <span class="item-num skip"></span>
+
+										 <a class="v-all skip">View All</a>
+										
+									</div>
+                                 
+
+								</form>
+								<script type="text/javascript">
+									function search(ele){
+									
+                                       if (ele.value == "") {
+                                       	document.querySelector(".list-product-search").classList.remove("active");
+                                       }else{
+
+                              let   idc  = document.querySelector("input[name='cate_id']");      	
+                            //console.log(idc,typeof idc)  
+
+                   let cateid = typeof idc === null? -1:idc.value
+
+                     let item_subcategory =  user().getData({ appends:[JSON.stringify({"Id":ele.value,"cateId":cateid}),0,100], url:"http://localhost/theproli.com/search_item/searchField"});
+
+
+let chk_cont = Array.from(document.querySelector(".list-product-search").children).forEach(ch=>{
+	 if (ch && !ch.className.match(/skip/)) {
+	 	ch.remove();
+	 }
+})
+
+/////////////////////////////////
+item_subcategory.then(data=>{
+	
+if (data.res.data) {
+/////////////////////////////////////check
+
+let clsact = "owl active"
+  data.res.data.forEach( (category,i)=>{
+   let price = category.item_discount==="1" ?parseFloat( category.item_unit_price ):parseFloat( category.item_unit_price )*parseFloat(category.item_discount)
+     let category_carrirer = `<div class="item-search-pro">
+                                             
+											<div class="search-ajax-thumb product-thumb">
+												<a href="#" class="product-thumb-link"><img src="http://localhost/theproli.com/usage/images/pimg/${JSON.parse(category.item_images).img[0]}" alt="" /></a>
+											</div>
+											<div class="search-ajax-title"><h3 class="title14"><a  href="http://localhost/theproli.com/item_details/product/${category.item_id}"">${category.item_name}</a></h3></div>
+											<div class="search-ajax-price">
+												<span>₦${new Intl.NumberFormat('en').format(parseFloat(price).toFixed(1) ) }</span>
+									</div>
+									
+
+							</div>`
+       
+
+   try{
+   	
+
+	document.querySelector(".list-product-search").insertAdjacentHTML("beforeend",category_carrirer);
+   document.querySelector(".list-product-search").classList.add("active");
+    	document.querySelector(".item-num").innerText = data.res.total+" items found";
+   		document.querySelector(".v-all").setAttribute("href",data.res.path)
+
+   }catch(e){
+
+   }
+
+
+                        
+                                        
+
+})
+
+
+
+
+
+
+
+
+		}							
+			
+                                        
+
+              }).catch(e=>{
+              	console.log(e)
+              })
+
+
+
+
+
+
+
+
+}
+
+
+}							
+			
+								</script>
+
+						          		
+
+							</div>
+						</div>
+           
+
+
+
+
+
+
+                     
+						<div class="col-md-3 col-sm-3 col-xs-9" style="left: 20px">
+							<div class="check-cart check-cart4">
+								<div class="mini-cart-box">
+									<a class="mini-cart-link" href="http://localhost/theproli.com/carts">
+										<span class="mini-cart-icon" style=" color: #fff"><i class="fa fa-shopping-basket" aria-hidden="true"></i></span>
+										<span class="mini-cart-number"> <strong class="cart-count __item_num__" style="color: #fff">0</strong></span>
+									</a>
+									<div class="mini-cart-content">
+										<h2><span class="__item_num__">(0)</span> ITEMS IN MY CART</h2>
+									<ul class="list-mini-cart-item list-unstyled __cart_main__" style=" max-height: 200px;overflow-y: auto;">
+											
+									</ul>
+									<div class="mini-cart-total">
+										<label>TOTAL</label>
+										<span class="__tot__"> ₦0.00</span>
+									</div>
+									<div class="mini-cart-button">
+										<a class="mini-cart-view" href="http://localhost/theproli.com/carts">view my cart </a>
+										<a class="mini-cart-checkout" href="http://localhost/theproli.com/checkout">Checkout</a>
+									</div>
+
+									</div>
+								</div>
+								
+								  
+
+								  	  								<div class="wishlist-box">
+									<a href="http://localhost/theproli.com/login" class="wishlist-top-link" style="color: #fff"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+								</div>
+								
+								  								<div class="checkout-box" style="position: relative;"> 
+									  
+									
+									<a href="#" class="checkout-link" style="color: #fff"><i class="fa fa-lock" aria-hidden="true"></i></a>
+									<ul class="list-checkout list-unstyled">
+										<li><a href="http://localhost/theproli.com/account#0"><i class="fa fa-user"></i> Account Info</a></li>
+										<li><a href="http://localhost/theproli.com/login"><i class="fa fa-heart-o"></i> Wish List</a></li>
+										 										<li><a href="http://localhost/theproli.com/login"><i class="fa fa-key" aria-hidden="true"></i>Sign in</a></li>
+                                        
+                                         
+
+
+										<li><a href="http://localhost/theproli.com/checkout"><i class="fa fa-shopping-cart"></i> Checkout</a></li>
+									</ul>
+								</div>
+								<!-- End Check Out Box -->
+							</div>
+						</div>
+
+
+
+
+						<div class="col-md-9 col-sm-12 col-xs-12">
+							<nav class="main-nav main-nav10">
+								<ul class="__CATE__">
+                                   
+
+									<li class="menu-item-has-children _skip" style="margin-left: ">
+										<!--pArent   Category-->
+										<a href="http://localhost/theproli.com/index">Home</a>
+												 <!-- Paren -->
+										
+									 </li>
+
+
+									<!-- ===================================================== -->
+									
+										<!--parent   Category-->
+										
+								
+
+
+									<!-- ======================================================== -->
+
+
+								<li class="menu-item-has-children" style="position:relative">
+                                   <a href="http://localhost/theproli.com/category/items/3n4hSco1">dairies</a>
+												 <!-- Paren -->
+										<ul class="sub-menu __SUBCATE__0"><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/1AtsXj50WM9bi4vGSfYz">yogurt</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__1AtsXj50WM9bi4vGSfYz"><li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/aj4IQgXRz2yVhNTUOSn1MCBwoYu0pleWqAf5G7cL">almond yogurt</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/g48jJSXVDps63FdhlxHGAzfIubS7mC9UqNOkvK1e">soy yogurt</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/0S9zjShC34wymOAPJvbUfTpxHXlL5oduMGqWg6VY">australian yoghurt</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/sywAgUEdq6zDaKJkpIfGcoNhmLQXn2x1WHSVeYlv">skyr, aka icelandic yogurt</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/2F5YBdWbEwmKLN6s1ekVMTCypuHgt8QXUGlS3v9n">sheep's milk yogurt</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/BiV48gDXpHsTI63N0oPyrJR1mzFSt7UfKWC2kMul">goat milk yogurt</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/2EVkjoAyYtP51Fsa4uXIKvmWpMcJgRLzOUwShi7q">greek yogurt.</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/A3RXOPG59zHf8W2cVYIC">traditional unstrained yogurt</a>
+														<!-- type -->
+														
+													</li>
+													
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/mk09TpAaHFItxdg51wGi">cheese</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__mk09TpAaHFItxdg51wGi"><li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/7UayuFtGdN513nAgPJlw0RQqL8srkHXifIz9WVSK">Goat cheese</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/xdBq1tS4NFbj0IHQO5eXMpAavwTsU6KJk7rgVPhn">Ricotta</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/Q6S9RfcO2JSBamhAU5CvbHjG0N1I7xEKpWyoXYus">Mascarpo</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/OQBv9utj50gMpWV1XnefLCJy2ISAKDscxdYoNGU6">monterey jac</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/Sa8fbwGmOLu9BK6AzCVJh4UdXg7eP1Hqikr2jnRD">Cream cheese</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/ltiFhSwkmxBORqd5QpYWCGDU7TA2HKgJPouXynS9">Fresh cheese</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/iqBNg9SIprH1wRMoh6DUKcbOx0dE2LjGzTlvSYfn">Cottage cheese</a>
+														<!-- type -->
+														
+													</li>
+													
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/zouyFkEx57hGSQt40gsl">milk</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__zouyFkEx57hGSQt40gsl"><li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/No3UjuHnxAdP4SMh6iDs"></a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/XB3rLGIRDP46mStHaz9QUF7q5kMeE0Y2TcWOuw1g">raw milk</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/hAosxTQNfPLuY3iVM76IgzOt9b1dC5cljWH0wvR8">skimmed milk</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/mXHtphkWe4rSicV8Y973jPB0R6T5aQSJzo2xqMLf">low fat milk</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/kjG4aQPWdXyRcHDIYSfo6zvOVwEUr5AhmBK2xqTe">whole milk</a>
+														<!-- type -->
+														
+													</li>
+													
+
+													
+
+													</ul>
+
+													</li>
+
+
+										
+										</ul>
+
+										</li><li class="menu-item-has-children" style="position:relative">
+                                   <a href="http://localhost/theproli.com/category/items/uhGfQKrg">fruits</a>
+												 <!-- Paren -->
+										<ul class="sub-menu __SUBCATE__1"><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/HcvaNO36MgRGr12DYj4J">garden egg</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__HcvaNO36MgRGr12DYj4J"><li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/oIBkmiyhK18DxqdpsnLg">green local</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/yRkNwbmcMWLAtVU5X6Ss">ghostbuster</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/1chVknelFpmAXOtUjRIQ">white varieties</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/ACKbDfEVouS9BsqjXJLr">indian eggplant</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/0PoKQDv9bSeHAuY6qRF8">solanum melongena</a>
+														<!-- type -->
+														
+													</li>
+													
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/f8gh2mL35BxWboTSa4jM">pawpaw</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__f8gh2mL35BxWboTSa4jM"><li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/YlotWKANcv6a4GMRgD0yn7HQFP8e3hJzBjSidfL1">yellow pawpaw</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/Vbzmry7wodXH0qU6KE4xWSj3TlfpktABcMS2CsnI">red pawpaw</a>
+														<!-- type -->
+														
+													</li>
+													
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/9wUg1sqTtQYG2b6WmVnC">water melon</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__9wUg1sqTtQYG2b6WmVnC"><li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/vYMLIuAdqTVOEDW89rHQz73PGblNpcsFmC6yS4Rx">yellow/orange</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/qASzKmPRXMjilwJNdLT9k8fGst4Q5rBvy3g1EHeW"> icebox</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/DQmJAlatv54PRCFoEGeYnbMK3V8w7izWhSTrN2kO">picnic</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/9Uq2H1QNgEjpxAorRduizk8VFSf6KJBIPl4yMYcm">seedless watermelons</a>
+														<!-- type -->
+														
+													</li>
+													
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/3vlyDWzAKabjmfpLNYMo">pineapple</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__3vlyDWzAKabjmfpLNYMo"><li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/n0clRfg8SUdN1TVrby2i"> smooth cayenne pineapples</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/FfqcnKw9DgY5S3X8uTit">abacaxi pineapples</a>
+														<!-- type -->
+														
+													</li>
+													
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/OLBxCusSdib2JDfXP3eU">apple</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__OLBxCusSdib2JDfXP3eU"><li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/UTJM5DaVmtYEQ71pdBo2rKSXl6bLWnOSFqcyPAwi">goldspur</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/XHChVtdvkKYD3BIn6FfJoTPie27MRNyQEjxsg4cG">winesap</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/FnyYaHmwS6UQgMfjG4uNz3RD7kp5b1PsJIWCq9iT">cortland</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/HvyolpBLeiSAmdVtfrnOWNICR5q7TDgaS6zX1GEY">amboisa</a>
+														<!-- type -->
+														
+													</li>
+													
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/Vuh08M4qtrHUy26YKPpi">orange</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__Vuh08M4qtrHUy26YKPpi"><li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/4cCBSvtMrnR7dowyEYUF8Sij9xfu21W6sGOmNelQ">clementine</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/tX9STvgeh6uyG25nP1LsIkzpWBrQUF7NmxEbi03H">tangerine</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/GanKkjUrwhoQYJ9Tt71z6P4ReIWylxgNDpO3CiuF">mandarin orange</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/SuARO8cJiwCM2VjThUbPpnmLrs7yGq43gB6kYQ01">blood orange</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/oyI0mUtxaHSgN6uiRJM1XKfTdlqEVLvC7c4Q5P2h">navel orange</a>
+														<!-- type -->
+														
+													</li>
+													
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/2lWgs49FvDCyirjAn5MH">grape</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__2lWgs49FvDCyirjAn5MH"><li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/r2u18BHA7fCSlYSmUsXP6qIVNDG3L0cwax45EWth">pink grapefruit</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/lnFNLcQWE8YJfe0K2Cyt5vGphgOMoB9ka6smbxjI">red grapefruit</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/EhajDWXeg0iBPJtI2QTcSyFCOod3SzGu854AvmsR">sweeties grapefruit</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/IGd8azwTlXkt7DM0ScoORNCvnFgEuWbKy4rxLV6S"> white grapefruit</a>
+														<!-- type -->
+														
+													</li>
+													
+
+													
+
+													</ul>
+
+													</li>
+
+
+										
+										</ul>
+
+										</li><li class="menu-item-has-children" style="position:relative">
+                                   <a href="http://localhost/theproli.com/category/items/iNOM0SuJ">grains</a>
+												 <!-- Paren -->
+										<ul class="sub-menu __SUBCATE__2"><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/zPCLhHj2WxwukB13mDXA">beans</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__zPCLhHj2WxwukB13mDXA"><li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/WPxRn4G3yjO0U5Et1l7T">green beans</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/H8caeQC9dhOwGzp0q4AS">brown bean</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/5dFhRe9sJGAI3rqSHyMo">white beans</a>
+														<!-- type -->
+														
+													</li>
+													
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/YpTgnNWbSCu8LOs17Kox"> rye</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__YpTgnNWbSCu8LOs17Kox">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/NSYSExlOFPyGMciQ8mJb">oats</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__NSYSExlOFPyGMciQ8mJb">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/hBTXxS1mSUdKrfuQvP53">wheat</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__hBTXxS1mSUdKrfuQvP53">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/yP03gr84kfDWnjKxuTUY">millet</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__yP03gr84kfDWnjKxuTUY">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/kKXRYOMHGvfynie1bt6N">rice</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__kKXRYOMHGvfynie1bt6N"><li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/7xIfA2TXhglq0bMosmtC">ofada</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/VSbLNcsRiJXYWnSAU7vr">brown rice</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/6bjFJgSxy2rhzECfRq85">white rice</a>
+														<!-- type -->
+														
+													</li>
+													
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/rqCSX0WfypjaGYALzRJD">corn</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__rqCSX0WfypjaGYALzRJD">
+
+													
+
+													</ul>
+
+													</li>
+
+
+										
+										</ul>
+
+										</li><li class="menu-item-has-children" style="position:relative">
+                                   <a href="http://localhost/theproli.com/category/items/DyOqxeIM">livestock</a>
+												 <!-- Paren -->
+										<ul class="sub-menu __SUBCATE__3"><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/estKAIfEvVmSONRpYxPj">pig</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__estKAIfEvVmSONRpYxPj">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/q8jrvECawVFDc7L091ib">sheep</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__q8jrvECawVFDc7L091ib">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/DBojhEWYGi65uk7Ha8yc">goat</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__DBojhEWYGi65uk7Ha8yc">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/j24ME5aJXCdeOUPNzV6y">cattle</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__j24ME5aJXCdeOUPNzV6y"><li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/Uxg2CraTunFtNRdSeikG">ndama</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/QAzdNTRM0gCJ1KXIh7Ut5HbS9f2p6YWyxkvq4Gmc">red fulani cattle</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/yktC7ze6RsNFjJLAQcT8GSvnworPSfhaUWb2i0xm">white fulani cattle</a>
+														<!-- type -->
+														
+													</li>
+													
+
+													
+
+													</ul>
+
+													</li>
+
+
+										
+										</ul>
+
+										</li><li class="menu-item-has-children" style="position:relative">
+                                   <a href="http://localhost/theproli.com/category/items/mG3huSN8">nuts</a>
+												 <!-- Paren -->
+										<ul class="sub-menu __SUBCATE__4"><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/TO0x9E6qGtnromBNCIf7">hazelnut</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__TO0x9E6qGtnromBNCIf7">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/jzyTD8uSqm5JNRtFXcfx">pistachio</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__jzyTD8uSqm5JNRtFXcfx">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/id9BXeYTOJxzohw2WaRg">walnut</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__id9BXeYTOJxzohw2WaRg">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/bR96i10rWQNCzKS2X4Y8">almond</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__bR96i10rWQNCzKS2X4Y8">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/XuLsTijNIeRQpxUCkSvF">cashew</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__XuLsTijNIeRQpxUCkSvF">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/DX2RKwHOpEuqTdx94oga">groundnut</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__DX2RKwHOpEuqTdx94oga"><li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/JCESWzgd156QUxFRYVO4">shell</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/zbS7STPQIdmrHxX94V6p">seed</a>
+														<!-- type -->
+														
+													</li>
+													
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/3sHuTztfevRD79Fh6LBX">bitter kola</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__3sHuTztfevRD79Fh6LBX">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/OxqbEd346XLkUtNlwnVj">kola nut</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__OxqbEd346XLkUtNlwnVj">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/eWiIJ4l6uLKYSszq8pEV">palm kernel</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__eWiIJ4l6uLKYSszq8pEV">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/2HijhLp9y3WwMgblNRs7">cocoa</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__2HijhLp9y3WwMgblNRs7">
+
+													
+
+													</ul>
+
+													</li>
+
+
+										
+										</ul>
+
+										</li><li class="menu-item-has-children" style="position:relative">
+                                   <a href="http://localhost/theproli.com/category/items/X2ID3hJM">oil</a>
+												 <!-- Paren -->
+										<ul class="sub-menu __SUBCATE__5"><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/1CEHlygftPwAnoa9pS0Y">white oil</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__1CEHlygftPwAnoa9pS0Y">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/XsLqOyBmEwdFYRlCGSP8">red oil</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__XsLqOyBmEwdFYRlCGSP8">
+
+													
+
+													</ul>
+
+													</li>
+
+
+										
+										</ul>
+
+										</li><li class="menu-item-has-children" style="position:relative">
+                                   <a href="http://localhost/theproli.com/category/items/0beAgUsv">poultry</a>
+												 <!-- Paren -->
+										<ul class="sub-menu __SUBCATE__6"><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/Q8jcgV1zmpDnyAtqJFTs">egg</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__Q8jcgV1zmpDnyAtqJFTs">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/hrCtmTg0qdX9LEDP4Apu">turkey</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__hrCtmTg0qdX9LEDP4Apu">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/KOhDcytYFbA4P8dW2TjR">guinea fowl</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__KOhDcytYFbA4P8dW2TjR">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/PWmjtTbazUC9vcEJrK1o">duck</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__PWmjtTbazUC9vcEJrK1o">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/cQEbXRIiaF4f30DyxA8z">browler</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__cQEbXRIiaF4f30DyxA8z">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/EtQSsXlbx1nHrad6f7Ue">fowl</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__EtQSsXlbx1nHrad6f7Ue">
+
+													
+
+													</ul>
+
+													</li>
+
+
+										
+										</ul>
+
+										</li><li class="menu-item-has-children" style="position:relative">
+                                   <a href="http://localhost/theproli.com/category/items/cXYnlzmi2oJy">fisheries &amp; sea foods</a>
+												 <!-- Paren -->
+										<ul class="sub-menu __SUBCATE__7"><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/syuKVIC36MzLq9BJv4Q8">crab</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__syuKVIC36MzLq9BJv4Q8">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/m1AzM8Lc7WNDubrv3HJI">snail</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__m1AzM8Lc7WNDubrv3HJI">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/59uLnSBCXwTV6YRatrzk">fish</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__59uLnSBCXwTV6YRatrzk"><li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/SUWNeXVzdybFG8sm3rKt">croker</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/fWHtbmj9NQpglK7SU3oC">tilapia</a>
+														<!-- type -->
+														
+													</li>
+													<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/FnXfrlCz1TVc98ymAkvh">cat fish</a>
+														<!-- type -->
+														
+													</li>
+													
+
+													
+
+													</ul>
+
+													</li>
+
+
+										
+										</ul>
+
+										</li><li class="menu-item-has-children" style="position:relative">
+                                   <a href="http://localhost/theproli.com/category/items/8BqzE4tWji9X">spices</a>
+												 <!-- Paren -->
+										<ul class="sub-menu __SUBCATE__8"><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/rLSxUSjC37GeO4ynbvPm">onions</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__rLSxUSjC37GeO4ynbvPm"><li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/R7XD5IBNtSK28C6YdH49">red onion</a>
+														<!-- type -->
+														
+													</li>
+													
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/foBIAD8RlpcPEXN2qsLU">ginger</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__foBIAD8RlpcPEXN2qsLU">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/kQd3OiaX8TnfAwypmqEx">gallic</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__kQd3OiaX8TnfAwypmqEx">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/e65jyOPHTFa7t3J8XSpg">papper</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__e65jyOPHTFa7t3J8XSpg">
+
+													
+
+													</ul>
+
+													</li>
+
+
+										
+										</ul>
+
+										</li><li class="menu-item-has-children" style="position:relative">
+                                   <a href="http://localhost/theproli.com/category/items/9eK1tx4GJBoS">tubers</a>
+												 <!-- Paren -->
+										<ul class="sub-menu __SUBCATE__9"><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/hScQYfn573mFMvSH0o4A">cocoa yam</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__hScQYfn573mFMvSH0o4A">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/WPhVRD7eLKJo2Fg84SU3">cassava</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__WPhVRD7eLKJo2Fg84SU3">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/kF6tPHg4JIKcYBsROwdQ">potatoes</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__kF6tPHg4JIKcYBsROwdQ">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/0MAnt2geqi1yz7mOCN36">yam</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__0MAnt2geqi1yz7mOCN36">
+
+													
+
+													</ul>
+
+													</li>
+
+
+										
+										</ul>
+
+										</li><li class="menu-item-has-children" style="position:relative">
+                                   <a href="http://localhost/theproli.com/category/items/8hC6IY0sLvHz">vegetable</a>
+												 <!-- Paren -->
+										<ul class="sub-menu __SUBCATE__10"><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/3JgS1uVoSBwMKxeFPCrL">green</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__3JgS1uVoSBwMKxeFPCrL">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/sixwzKafc1uoH3Fp06Tm">water leave</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__sixwzKafc1uoH3Fp06Tm">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/17lisv3Aa956kzwOeb4Q">jute leave</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__17lisv3Aa956kzwOeb4Q">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/1n9FvqjdyRBSA4Dzbc6W">spinach</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__1n9FvqjdyRBSA4Dzbc6W">
+
+													
+
+													</ul>
+
+													</li><li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/IOaAD6dEKiGyhFuw1brt">fluted pupkin</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__IOaAD6dEKiGyhFuw1brt">
+
+													
+
+													</ul>
+
+													</li>
+
+
+										
+										</ul>
+
+										</li></ul>
+								<a href="#" class="toggle-mobile-menu"><span></span></a>
+							</nav>
+                             <script type="text/javascript">
+
+
+          
+
+
+
+
+function category_subCate_type_subHeader(){
+
+
+
+          function populateCategory(ele,category_id,callbackSubcate,callbackTypes){
+                                  let item_category = user().getData({ appends:[category_id], url:"http://localhost/theproli.com/index/getCategorys"});
+;
+/////////////////////////////////
+console.log(item_category )
+item_category.then(data=>{
+	
+if (data.res.data) {
+/////////////////////////////////////check
+let chk_cont = Array.from(ele.children).forEach(ch=>{
+	 if (ch && !ch.className.match(/_skip/)) {
+	 	ch.remove();
+	 }
+})
+
+  data.res.data.forEach( (c,i)=>{
+   
+     let category_carrirer = `<li class="menu-item-has-children" style="position:relative" >
+                                   <a href="http://localhost/theproli.com/category/items/${c.category_id}">${c.category_name}</a>
+												 <!-- Paren -->
+										<ul class="sub-menu __SUBCATE__${i}">
+
+
+										
+										</ul>
+
+										</li>`
+
+
+
+let category_search_field = `<li cate_id = "${c.category_id}"><a href="#" cate_id = "${c.category_id}">${c.category_name}</a></li>`
+
+document.querySelector(".__CATE__SEARCH").insertAdjacentHTML("beforeend",category_search_field);
+
+	ele.insertAdjacentHTML("beforeend",category_carrirer);
+callbackSubcate(document.querySelector(".__SUBCATE__"+i),c.category_id,callbackTypes)
+
+
+
+})
+/////////////////////////////////check
+
+
+
+
+}/////////////////////if data
+
+})
+////////////////////////////////////
+
+
+}
+
+
+
+
+ function populateSubCategory(ele,category_id, callbackTypes){
+                let item_category = user().getData({ appends:[category_id], url:"http://localhost/theproli.com/index/getsubCategorys"});
+;
+/////////////////////////////////
+
+item_category.then(data=>{
+	
+if (data.res.data) {
+/////////////////////////////////////check
+let chk_cont = Array.from(ele.children).forEach(ch=>{
+	 if (ch) {
+	 	ch.remove();
+	 }
+})
+
+  data.res.data.forEach( (c,i)=>{
+   
+     let category_carrirer = `<li class="menu-item-has-children" style="position:relative">
+
+												<!--   subCategory-->
+												<a href="http://localhost/theproli.com/subcategory/items/${c.subcategory_id}">${c.subcategory_name}</a>  
+												 <!-- Sub categgiry -->
+
+												   <ul class="sub-menu __TYPE__${c.subcategory_id}">
+
+													
+
+													</ul>
+
+													`
+
+	ele.insertAdjacentHTML("afterBegin",category_carrirer);
+
+     callbackTypes(document.querySelector(".__TYPE__"+c.subcategory_id),c.subcategory_id)
+
+
+})
+/////////////////////////////////check
+
+
+
+
+}/////////////////////if data
+
+})
+////////////////////////////////////
+
+
+}
+
+
+
+
+ function populateItemTypes(ele,category_id){
+                let item_category = user().getData({ appends:[category_id], url:"http://localhost/theproli.com/index/getItemTypes"});
+;
+/////////////////////////////////
+
+item_category.then(data=>{
+	
+if (data.res.data) {
+/////////////////////////////////////check
+let chk_cont = Array.from(ele.children).forEach(ch=>{
+	 if (ch) {
+	 	ch.remove();
+	 }
+})
+
+  data.res.data.forEach( (c,i)=>{
+   
+     let category_carrirer = `<li class="menu-item-preview">
+														<!-- Type -->
+														<a href="http://localhost/theproli.com/item_type/items/${c.type_id}">${c.type_name}</a>
+														<!-- type -->
+														
+													</li>
+													`
+
+
+
+
+	ele.insertAdjacentHTML("afterBegin",category_carrirer);
+
+
+
+
+})
+/////////////////////////////////check
+
+
+
+
+}/////////////////////if data
+
+})
+////////////////////////////////////
+
+
+}
+ populateCategory(document.querySelector(".__CATE__"),0,populateSubCategory,populateItemTypes) 
+
+}
+
+window.addEventListener("load",function(){
+category_subCate_type_subHeader()	
+})
+
+
+                             </script>
+
+	
+							<div class="mini-cart-box mini-cart10">
+								<!-- <a class="mini-cart-link" href="cart.html" >
+									<span style="    background: #f40;" class="mini-cart-icon"><img src="http://localhost/theproli.com/usage/customer-assets/images/theme/icon-cart.png" alt="" /></span>
+									<span class="mini-cart-number">0</span>
+								</a> -->
+
+                     								<div class="mini-cart-content">
+									<h2>(0) ITEMS IN MY CART</h2>
+									<ul class="list-mini-cart-item list-unstyled " style=" max-height: 200px;overflow-y: auto;">
+										
+									</ul>
+									<div class="mini-cart-total">
+										<label>TOTAL</label>
+										<span> ₦0.00</span>
+									</div>
+									<div class="mini-cart-button">
+										<a class="mini-cart-view" href="http://localhost/theproli.com//index/cart">view my cart </a>
+										<a class="mini-cart-checkout" href="http://localhost/theproli.com/checkout">Checkout</a>
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Main Header -->				<!-- End Top Header -->
+
+			</div>
+		</div>
+
+<div class="header-ontop">
+			<div class="container">
+			<div class="row">
+				<!-- <div class="col-md-2 col-sm-2 col-xs-12">
+					<div class="logo">
+						<h1 class="hidden">kuteshop wordpress theme</h1>
+						<a href="index.html"><img src="http://localhost/theproli.com/usage/customer-assets/images/home10/logo2.png" alt=""></a>
+					</div>
+				</div> -->
+				<div class="col-md-8 col-sm-8 col-xs-12">
+				
+                        
+				</div>
+
+
+
+				<div class="col-md-2 col-sm-2 col-xs-12">
+					<div class="check-cart check-cart-ontop">
+
+                          <!-- End Check Out Box lock-->
+						<div class="checkout-box">
+							<a href="#" class="checkout-link" style="color: #f40;"><i class="fa fa-lock" aria-hidden="true"></i></a>							<ul class="list-checkout list-unstyled">
+								<li><a href="http://localhost/theproli.com/account#0"><i class="fa fa-user"></i> Account Info</a></li>
+										<li><a href="http://localhost/theproli.com/login"><i class="fa fa-heart-o"></i> Wish List</a></li>
+										 										<li><a href="http://localhost/theproli.com/login"><i class="fa fa-key" aria-hidden="true"></i>Sign in</a></li>
+                                        
+                                         
+
+
+										<li><a href="http://localhost/theproli.com/checkout"><i class="fa fa-shopping-cart"></i> Checkout</a></li>
+							</ul>
+						</div>
+						<!-- End Check Out Box -->
+
+
+						<div class="search-hover-box">
+							<!-- <a href="#" class="search-hover-link"><i class="fa fa-search" aria-hidden="true"></i></a>
+							<form class="search-form-hover">
+								<input onblur="if (this.value=='') this.value = this.defaultValue" onfocus="if (this.value==this.defaultValue) this.value = ''" value="Search..." type="text">
+								<input value="" type="hidden">
+							</form> -->
+						</div>
+
+						<!-- End Wishlist -->
+						<div class="mini-cart-box">
+							<a class="mini-cart-link" href="http://localhost/theproli.com/carts">
+								<span class="mini-cart-icon"><i class="fa fa-shopping-basket" aria-hidden="true"></i></span>
+								<span class="mini-cart-number"> <strong class="cart-count __item_num__" style="color: #000">0</strong></span>
+									</a>
+									<div class="mini-cart-content">
+										<h2><span class="__item_num__">(0)</span>  ITEMS IN MY CART</h2>
+									<ul class="list-mini-cart-item list-unstyled __cart_main__" style=" max-height: 200px;overflow-y: auto;">
+											
+								</ul>
+								<div class="mini-cart-total">
+										<label>TOTAL</label>
+										<span class="__tot__">₦0.00</span> 
+									</div>
+									<div class="mini-cart-button">
+										<a class="mini-cart-view" href="http://localhost/theproli.com//cart">view my cart </a>
+										<a class="mini-cart-checkout" href="http://localhost/theproli.com/checkout">Checkout</a>
+									</div>
+
+							</div>
+						</div>
+						<!-- End Mini Cart -->
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>

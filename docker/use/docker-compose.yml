@@ -1,0 +1,67 @@
+version: '3'
+services:
+  
+  #PHP Service
+  app:
+    build:
+      context: .
+      dockerfile: DockerFile
+   # image: digitalocean.com/php
+    container_name: app
+    restart: unless-stopped
+    tty: true
+   
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+       - ./../../.env:/var/www/.env
+       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - app-network
+    
+
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "600:80"
+      - "443:443"
+    volumes:
+     - ./:/var/www
+     - ./nginx/conf.d:/etc/nginx/conf.d
+    #  - ../../testn.php :/var/www/public/index.php
+    #  - ../../testn.html :/var/www/public/index.html
+    networks:
+      - app-network
+
+  #MySQL Service
+  db:
+    image: mysql:8.0.11
+    container_name: db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: new_theproli_babatunde_2020
+      MYSQL_ROOT_PASSWORD: Bch2009021
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+volumes:
+  dbdata:
+    driver: local

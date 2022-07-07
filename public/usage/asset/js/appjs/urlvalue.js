@@ -1,0 +1,1 @@
+const APP_PATH =location.protocol==='https://'?location.origin+'/':location.origin+'/abp.com/';

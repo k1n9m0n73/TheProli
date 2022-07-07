@@ -1,0 +1,56 @@
+            <!-- =======pane0==== -->
+                               
+                               <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 content-pane-0"  >  
+                                  <form enctype="multipart/form-data" class="permission"  method="post" action="/admin/users/admin/update/permission">
+                                  <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 box-white">
+                         <div class="form-group mt-3">
+                              <label>Businee name</label>
+                              <p type="text" class="form-control" placeholder="Category name" autocomplete="off" name="category_name" is-req="" is-req-text="Category name is required">
+                                {{$user_data->bn}}                              
+                              </p>
+                         </div>
+
+                         <div class="form-group mt-3">
+                              <label>Business type</label>
+                              <p type="text" class="form-control" placeholder="Category name" autocomplete="off" name="category_name" is-req="" is-req-text="Category name is required">
+                              {{$user_data->bty}}                             
+                              </p>
+                         </div>
+
+                          <div class="form-group mt-3">
+                              <label>Available storage</label>
+                              <?php
+                                     foreach (json_decode($user_data->so)->storage as $key => $value) {
+                                      echo ' <p type="text" class="form-control" placeholder="Category name" autocomplete="off" name="category_name" is-req="" is-req-text="Category name is required">
+                                                       '.$value.'                             
+                                      </p>';
+                                     }
+                              ?>
+                             
+                         </div>
+                         <div class="form-group mt-3">
+                              <label>Available package</label>
+                              <?php
+                                     foreach (json_decode($user_data->po)->package as $key => $value) {
+                                      echo ' <p type="text" class="form-control" placeholder="Category name" autocomplete="off" name="category_name" is-req="" is-req-text="Category name is required">
+                                                       '.$value.'                             
+                                      </p>';
+                                     }
+                              ?>
+                             
+                         </div>
+                         
+
+
+
+
+                      
+
+                          
+
+                    </div>
+                                  </form>
+                                   
+                              
+                               </div>
+                                <!-- =======pane0==== -->

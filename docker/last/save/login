@@ -1,0 +1,80 @@
+<?php
+namespace App\Http\Controllers\Customer;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+//use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+use App\Models\Customer;
+use Illuminate\Support\Facades\Auth;
+
+
+class LoginController extends Controller
+{
+    public function __construct(){
+
+        $this->middleware(function ($request, $next) {
+       
+         return $next($request);
+     });
+    } 
+    public function index()
+    { 
+
+        return view('customer.login', ['csp'=>['id'=> '$id'  ]]);
+    }  
+      
+
+    public function customLogin(Request $request)
+    {
+   
+      
+        if(empty($_POST['email'])){
+            return redirect()->intended('/login')
+            ->withErrors('Email is required');
+        }
+        if(empty($_POST['password'])){
+            return redirect()->intended('/login')
+            ->withErrors('Password is required');
+        }
+
+        try {
+            $user  = DB::table('customers')->where('email',$request->input('email'))->first();  //code...
+        } catch (\Throwable $th) {
+            return redirect()->intended('/login')
+            ->withErrors('Login details not found');
+        }
+    
+        $credentials = [
+        'email'=>$request->input('email'),
+        //'password'=>Hash::make( $request->input('password'))
+        'password'  => $request->input('password')
+        ];
+        $rem   = $request->input('rem')=='on'?true:false;
+       
+       
+     
+        if (Auth::guard('customer')->attempt($credentials,$rem)) {
+        
+          //  $request->session()->put('user_customer',$user->user_id);
+            session(['user_customer'=>$user->user_id]);
+            if($request->session()->has('_cart_') && !empty($request->session()->get('_cart_') )  ){
+                return redirect()->intended('/checkout')
+            ->withSuccess('welcome back');  
+            }else{
+                return redirect()->intended('/')
+                ->withSuccess('Login successful');
+               // echo json_encode(['suc'=>'Login successful','url'=>'/']);
+            }
+
+        }else{
+            return redirect()->intended('/login')
+            ->withErrors('Invalid login details');//echo json_encode(['err'=>'Invalid login details']);   
+        }
+  
+       
+    }
+
+
+ 
+}
